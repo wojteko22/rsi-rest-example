@@ -22,4 +22,8 @@ class PersonService(val repository: PersonRepository) {
         person.updateUsing(dto)
         repository.save(person)
     }
+
+    fun deletePerson(id: Int) {
+        repository.deleteById(id)
+    }
 }

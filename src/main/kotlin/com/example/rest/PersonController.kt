@@ -23,4 +23,9 @@ class PersonController(val service: PersonService) {
     fun updatePerson(@PathVariable id: Int, @RequestBody dto: UpdatePersonDto) {
         service.updatePerson(id, dto)
     }
+
+    @DeleteMapping("/{id}")
+    fun deletePerson(@PathVariable id: Int) {
+        service.deletePerson(id)
+    }
 }
