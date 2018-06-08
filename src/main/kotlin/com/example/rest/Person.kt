@@ -15,4 +15,9 @@ class Person(var name: String, var weight: Double) {
         name = person.name
         weight = person.weight
     }
+
+    fun updateUsing(dto: UpdatePersonDto) {
+        dto.name?.let { name = it }
+        dto.weight?.let { weight = it }
+    }
 }

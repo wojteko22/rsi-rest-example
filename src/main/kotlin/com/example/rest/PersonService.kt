@@ -16,4 +16,10 @@ class PersonService(val repository: PersonRepository) {
         person.updateUsing(newPerson)
         repository.save(person)
     }
+
+    fun updatePerson(id: Int, dto: UpdatePersonDto) {
+        val person = repository.getOne(id)
+        person.updateUsing(dto)
+        repository.save(person)
+    }
 }
