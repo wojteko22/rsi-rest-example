@@ -10,13 +10,13 @@ class PersonController(val service: PersonService) {
     fun getAll() = service.getAllPeople()
 
     @PostMapping
-    fun addPerson(@RequestBody person: Person) {
-        service.addPerson(person)
+    fun addPerson(@RequestBody dto: CreatePersonDto) {
+        service.addPerson(dto)
     }
 
     @PutMapping("/{id}")
-    fun replacePerson(@PathVariable id: Int, @RequestBody newPerson: Person) {
-        service.replacePerson(id, newPerson)
+    fun replacePerson(@PathVariable id: Int, @RequestBody dto: CreatePersonDto) {
+        service.replacePerson(id, dto)
     }
 
     @PatchMapping("/{id}")

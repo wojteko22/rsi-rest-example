@@ -7,13 +7,14 @@ class PersonService(val repository: PersonRepository) {
 
     fun getAllPeople(): Iterable<Person> = repository.findAll()
 
-    fun addPerson(person: Person) {
+    fun addPerson(dto: CreatePersonDto) {
+        val person = Person.fromDto(dto)
         repository.save(person)
     }
 
-    fun replacePerson(id: Int, newPerson: Person) {
+    fun replacePerson(id: Int, dto: CreatePersonDto) {
         val person = repository.getOne(id)
-        person.updateUsing(newPerson)
+        person.updateUsing(dto)
         repository.save(person)
     }
 
