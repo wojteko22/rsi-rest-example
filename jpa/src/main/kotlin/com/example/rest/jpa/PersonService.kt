@@ -5,9 +5,9 @@ import com.example.dto.UpdatePersonDto
 import org.springframework.stereotype.Service
 
 @Service
-class PersonService(val repository: PersonRepository) {
+class PersonService internal constructor(val repository: PersonRepository) {
 
-    fun getAllPeople(): Iterable<Person> = repository.findAll()
+    fun getAllPeople() = repository.findAll().map { it.toDto() }
 
     fun addPerson(dto: CreatePersonDto) {
         val person = Person.fromDto(dto)

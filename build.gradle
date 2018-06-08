@@ -1,15 +1,11 @@
 buildscript {
-    ext {
-        kotlinVersion = '1.2.41'
-        springBootVersion = '2.0.2.RELEASE'
-    }
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
-        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:$SPRING_BOOT_VER")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$KOTLIN_VER")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:$KOTLIN_VER")
     }
 }
 
@@ -41,7 +37,6 @@ repositories {
 
 dependencies {
     compile project(':jpa')
-    compile project(':dto')
     compile('org.springframework.boot:spring-boot-starter-web')
     compile('com.fasterxml.jackson.module:jackson-module-kotlin')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
