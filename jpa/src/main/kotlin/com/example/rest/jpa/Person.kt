@@ -12,7 +12,7 @@ internal class Person(private var name: String, private var weight: Double) {
 
     @Id
     @GeneratedValue
-    private val id: Int = -1
+    val id: Int = -1
 
     fun updateUsing(dto: CreatePersonDto) {
         name = dto.name

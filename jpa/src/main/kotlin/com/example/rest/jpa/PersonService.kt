@@ -9,9 +9,10 @@ class PersonService internal constructor(val repository: PersonRepository) {
 
     fun getAllPeople() = repository.findAll().map { it.toDto() }
 
-    fun addPerson(dto: CreatePersonDto) {
+    fun addPerson(dto: CreatePersonDto): Int {
         val person = Person.fromDto(dto)
-        repository.save(person)
+        val savedPerson = repository.save(person)
+        return savedPerson.id
     }
 
     fun replacePerson(id: Int, dto: CreatePersonDto) {
