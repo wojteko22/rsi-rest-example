@@ -1,13 +1,16 @@
 package com.example.rest
 
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/people")
 class PersonController(val service: PersonService) {
 
     @GetMapping
-    fun getAll() = service.getAll()
+    fun getAll() = service.getAllPeople()
+
+    @PostMapping
+    fun addPerson(@RequestBody person: Person) {
+        service.addPerson(person)
+    }
 }
