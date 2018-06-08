@@ -5,9 +5,14 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
-class Person(val name: String, val weight: Double) {
+class Person(var name: String, var weight: Double) {
 
     @Id
     @GeneratedValue
     val id: Int = -1
+
+    fun updateUsing(person: Person) {
+        name = person.name
+        weight = person.weight
+    }
 }

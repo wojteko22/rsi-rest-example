@@ -13,4 +13,9 @@ class PersonController(val service: PersonService) {
     fun addPerson(@RequestBody person: Person) {
         service.addPerson(person)
     }
+
+    @PutMapping("/{id}")
+    fun replacePerson(@PathVariable id: Int, @RequestBody newPerson: Person) {
+        service.replacePerson(id, newPerson)
+    }
 }
