@@ -1,5 +1,8 @@
 package com.example.rest
 
+import com.example.dto.CreatePersonDto
+import com.example.dto.UpdatePersonDto
+import com.example.rest.jpa.PersonService
 import org.springframework.web.bind.annotation.*
 
 @RestController

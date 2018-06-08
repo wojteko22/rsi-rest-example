@@ -1,4 +1,4 @@
-package com.example.rest
+package com.example.rest.jpa
 
 import org.springframework.boot.CommandLineRunner
 import org.springframework.context.annotation.Bean

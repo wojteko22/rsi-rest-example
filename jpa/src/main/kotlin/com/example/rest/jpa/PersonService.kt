@@ -1,5 +1,7 @@
-package com.example.rest
+package com.example.rest.jpa
 
+import com.example.dto.CreatePersonDto
+import com.example.dto.UpdatePersonDto
 import org.springframework.stereotype.Service
 
 @Service
