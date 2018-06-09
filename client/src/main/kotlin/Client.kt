@@ -31,7 +31,7 @@ class Client {
         val name = words[2]
         val weight = words[3].toDouble()
         val person = CreatePersonDto(name, weight)
-        tryToMakeSuccesfulRequest { template.put("$url/$id", person) }
+        tryToMakeSuccessfulRequest { template.put("$url/$id", person) }
     }
 
     fun updatePerson(words: List<String>) {
@@ -39,15 +39,15 @@ class Client {
         val name = tryToGetName(words)
         val weight = tryToGetWeight(words)
         val person = UpdatePersonDto(name, weight)
-        tryToMakeSuccesfulRequest { template.patchForObject<Void>("$url/$id", person) }
+        tryToMakeSuccessfulRequest { template.patchForObject<Void>("$url/$id", person) }
     }
 
     fun deletePerson(words: List<String>) {
         val id = words[1].toInt()
-        tryToMakeSuccesfulRequest { template.delete("$url/$id") }
+        tryToMakeSuccessfulRequest { template.delete("$url/$id") }
     }
 
-    private fun tryToMakeSuccesfulRequest(f: () -> Unit) {
+    private fun tryToMakeSuccessfulRequest(f: () -> Unit) {
         try {
             f()
         } catch (e: HttpClientErrorException) {
