@@ -1,3 +1,5 @@
 rootProject.name = 'rest'
 include 'jpa'
 include 'dto'
+include 'client'
+
