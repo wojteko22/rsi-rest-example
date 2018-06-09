@@ -2,10 +2,7 @@ import com.example.dto.CreatePersonDto
 import com.example.dto.PersonDto
 import com.example.dto.UpdatePersonDto
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
-import org.springframework.web.client.RestTemplate
-import org.springframework.web.client.getForObject
-import org.springframework.web.client.patchForObject
-import org.springframework.web.client.postForObject
+import org.springframework.web.client.*
 
 fun main(args: Array<String>) {
     val client = Client()
@@ -24,12 +21,16 @@ fun main(args: Array<String>) {
         val line = readLine()!!
         val words = line.split(" ")
         val commend = words[0].toLowerCase()
-        when (commend) {
-            "get" -> client.getAllPeople()
-            "post" -> client.addPerson(words)
-            "put" -> client.replacePerson(words)
-            "patch" -> client.updatePerson(words)
-            "delete" -> client.deletePerson(words)
+        try {
+            when (commend) {
+                "get" -> client.getAllPeople()
+                "post" -> client.addPerson(words)
+                "put" -> client.replacePerson(words)
+                "patch" -> client.updatePerson(words)
+                "delete" -> client.deletePerson(words)
+            }
+        } catch (e: NumberFormatException) {
+            println(e)
         }
     } while (commend != "exit")
 }
@@ -60,7 +61,7 @@ class Client {
         val name = words[2]
         val weight = words[3].toDouble()
         val person = CreatePersonDto(name, weight)
-        template.put("$url/$id", person)
+        tryToMakeSuccesfulRequest { template.put("$url/$id", person) }
     }
 
     fun updatePerson(words: List<String>) {
@@ -68,12 +69,20 @@ class Client {
         val name = tryToGetName(words)
         val weight = tryToGetWeight(words)
         val person = UpdatePersonDto(name, weight)
-        template.patchForObject<Void>("$url/$id", person)
+        tryToMakeSuccesfulRequest { template.patchForObject<Void>("$url/$id", person) }
     }
 
     fun deletePerson(words: List<String>) {
         val id = words[1].toInt()
-        template.delete("$url/$id")
+        tryToMakeSuccesfulRequest { template.delete("$url/$id") }
+    }
+
+    private fun tryToMakeSuccesfulRequest(f: () -> Unit) {
+        try {
+            f()
+        } catch (e: HttpClientErrorException) {
+            println(e.responseBodyAsString)
+        }
     }
 
     private fun tryToGetName(arguments: List<String>): String? {
