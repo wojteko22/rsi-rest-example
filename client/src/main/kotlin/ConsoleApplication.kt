@@ -25,7 +25,7 @@ object ConsoleApplication {
     private fun tryToExecute(command: String, words: List<String>) {
         try {
             execute(command, words)
-        } catch (e: NumberFormatException) {
+        } catch (e: Exception) {
             println(e)
         }
     }
