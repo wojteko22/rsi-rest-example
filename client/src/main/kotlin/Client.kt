@@ -17,6 +17,7 @@ fun main(args: Array<String>) {
             post {name} {weight}
             put {id} {name} {weight}
             patch {id} -/{name} [weight]
+            delete {id}
             exit
             """
         )
@@ -28,6 +29,7 @@ fun main(args: Array<String>) {
             "post" -> client.addPerson(words)
             "put" -> client.replacePerson(words)
             "patch" -> client.updatePerson(words)
+            "delete" -> client.deletePerson(words)
         }
     } while (commend != "exit")
 }
@@ -45,28 +47,33 @@ class Client {
         println(people)
     }
 
-    fun addPerson(arguments: List<String>) {
-        val name = arguments[1]
-        val weight = arguments[2].toDouble()
+    fun addPerson(words: List<String>) {
+        val name = words[1]
+        val weight = words[2].toDouble()
         val person = CreatePersonDto(name, weight)
         val id = template.postForObject<Int>(url, person)
         println("id: $id")
     }
 
-    fun replacePerson(arguments: List<String>) {
-        val id = arguments[1].toInt()
-        val name = arguments[2]
-        val weight = arguments[3].toDouble()
+    fun replacePerson(words: List<String>) {
+        val id = words[1].toInt()
+        val name = words[2]
+        val weight = words[3].toDouble()
         val person = CreatePersonDto(name, weight)
         template.put("$url/$id", person)
     }
 
-    fun updatePerson(arguments: List<String>) {
-        val id = arguments[1].toInt()
-        val name = tryToGetName(arguments)
-        val weight = tryToGetWeight(arguments)
+    fun updatePerson(words: List<String>) {
+        val id = words[1].toInt()
+        val name = tryToGetName(words)
+        val weight = tryToGetWeight(words)
         val person = UpdatePersonDto(name, weight)
         template.patchForObject<Void>("$url/$id", person)
+    }
+
+    fun deletePerson(words: List<String>) {
+        val id = words[1].toInt()
+        template.delete("$url/$id")
     }
 
     private fun tryToGetName(arguments: List<String>): String? {
