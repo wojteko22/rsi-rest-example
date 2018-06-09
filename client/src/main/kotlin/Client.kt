@@ -1,7 +1,10 @@
 import com.example.dto.CreatePersonDto
 import com.example.dto.PersonDto
+import com.example.dto.UpdatePersonDto
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 import org.springframework.web.client.RestTemplate
 import org.springframework.web.client.getForObject
+import org.springframework.web.client.patchForObject
 import org.springframework.web.client.postForObject
 
 fun main(args: Array<String>) {
@@ -13,6 +16,7 @@ fun main(args: Array<String>) {
             get
             post {name} {weight}
             put {id} {name} {weight}
+            patch {id} -/{name} [weight]
             exit
             """
         )
@@ -23,12 +27,17 @@ fun main(args: Array<String>) {
             "get" -> client.getAllPeople()
             "post" -> client.addPerson(words)
             "put" -> client.replacePerson(words)
+            "patch" -> client.updatePerson(words)
         }
     } while (commend != "exit")
 }
 
 class Client {
-    private val template = RestTemplate()
+
+    private val template = run {
+        val requestFactory = HttpComponentsClientHttpRequestFactory()
+        RestTemplate(requestFactory)
+    }
     private val url = "http://localhost:8080/people"
 
     fun getAllPeople() {
@@ -52,5 +61,23 @@ class Client {
         template.put("$url/$id", person)
     }
 
+    fun updatePerson(arguments: List<String>) {
+        val id = arguments[1].toInt()
+        val name = tryToGetName(arguments)
+        val weight = tryToGetWeight(arguments)
+        val person = UpdatePersonDto(name, weight)
+        template.patchForObject<Void>("$url/$id", person)
+    }
 
+    private fun tryToGetName(arguments: List<String>): String? {
+        val word = arguments[2]
+        return if (word == "-") null else word
+    }
+
+    private fun tryToGetWeight(arguments: List<String>): Double? =
+        try {
+            arguments[3].toDouble()
+        } catch (e: Exception) {
+            null
+        }
 }

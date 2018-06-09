@@ -41,4 +41,5 @@ dependencies {
     compile('com.fasterxml.jackson.module:jackson-module-kotlin')
     compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
     compile("org.jetbrains.kotlin:kotlin-reflect")
+    compile('org.apache.httpcomponents:httpclient:4.4.1')
 }
