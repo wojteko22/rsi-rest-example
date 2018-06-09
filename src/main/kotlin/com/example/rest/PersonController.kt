@@ -6,6 +6,7 @@ import com.example.rest.jpa.PersonService
 import org.springframework.web.bind.annotation.*
 
 @RestController
+@CrossOrigin(origins = ["http://localhost:4200"])
 @RequestMapping("/people")
 class PersonController(val service: PersonService) {
 
