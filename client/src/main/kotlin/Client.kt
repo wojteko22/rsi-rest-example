@@ -4,36 +4,6 @@ import com.example.dto.UpdatePersonDto
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
 import org.springframework.web.client.*
 
-fun main(args: Array<String>) {
-    val client = Client()
-    do {
-        println(
-            """
-            Available commends:
-            get
-            post {name} {weight}
-            put {id} {name} {weight}
-            patch {id} -/{name} [weight]
-            delete {id}
-            exit
-            """
-        )
-        val line = readLine()!!
-        val words = line.split(" ")
-        val commend = words[0].toLowerCase()
-        try {
-            when (commend) {
-                "get" -> client.getAllPeople()
-                "post" -> client.addPerson(words)
-                "put" -> client.replacePerson(words)
-                "patch" -> client.updatePerson(words)
-                "delete" -> client.deletePerson(words)
-            }
-        } catch (e: NumberFormatException) {
-            println(e)
-        }
-    } while (commend != "exit")
-}
 
 class Client {
 
