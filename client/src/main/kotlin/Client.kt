@@ -12,6 +12,7 @@ fun main(args: Array<String>) {
             Available commends:
             get
             post {name} {weight}
+            put {id} {name} {weight}
             exit
             """
         )
@@ -21,6 +22,7 @@ fun main(args: Array<String>) {
         when (commend) {
             "get" -> client.getAllPeople()
             "post" -> client.addPerson(words)
+            "put" -> client.replacePerson(words)
         }
     } while (commend != "exit")
 }
@@ -40,6 +42,14 @@ class Client {
         val person = CreatePersonDto(name, weight)
         val id = template.postForObject<Int>(url, person)
         println("id: $id")
+    }
+
+    fun replacePerson(arguments: List<String>) {
+        val id = arguments[1].toInt()
+        val name = arguments[2]
+        val weight = arguments[3].toDouble()
+        val person = CreatePersonDto(name, weight)
+        template.put("$url/$id", person)
     }
 
 
