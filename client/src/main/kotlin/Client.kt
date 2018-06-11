@@ -16,7 +16,7 @@ class Client {
 
     fun getAllPeople() {
         val people = template.getForObject<List<PersonDto>>(url)
-        println(people)
+        println("\npeople: $people")
     }
 
     fun addPerson(words: List<String>) {
@@ -24,7 +24,7 @@ class Client {
         val weight = words[2].toFloat()
         val person = CreatePersonDto(name, weight)
         val id = template.postForObject<Int>(url, person)
-        println("id: $id")
+        println("\nid: $id")
     }
 
     fun addRandomPeople(words: List<String>) {
@@ -32,7 +32,7 @@ class Client {
         val b = words[2].toInt()
         val dto = CreateRandomPeopleDto(a, b)
         val generatedPeople = template.postForObject<List<PersonDto>>("$url/random", dto)
-        println("generatedPeople: $generatedPeople")
+        println("\ngeneratedPeople: $generatedPeople")
     }
 
     fun replacePerson(words: List<String>) {
@@ -60,7 +60,7 @@ class Client {
         try {
             f()
         } catch (e: HttpClientErrorException) {
-            println(e.responseBodyAsString)
+            println("\nresponseBody: ${e.responseBodyAsString}")
         }
     }
 
