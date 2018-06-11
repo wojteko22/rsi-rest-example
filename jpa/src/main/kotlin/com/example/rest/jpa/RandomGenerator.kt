@@ -12,7 +12,7 @@ object RandomGenerator {
 
     fun randomInt(min: Int, maxInclusive: Int) = min + Random().nextInt(maxInclusive - min + 1)
 
-    fun randomDouble(min: Int, maxExclusive: Int) = min + Random().nextDouble() * (maxExclusive - min)
+    fun randomFloat(min: Int, maxExclusive: Int) = min + Random().nextFloat() * (maxExclusive - min)
 
     private fun randomName(size: Long): String {
         val source = "abcdefghijklmnoprstuwyz"

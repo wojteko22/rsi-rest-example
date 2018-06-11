@@ -10,8 +10,8 @@ internal class DataLoader {
     @Bean
     fun initRoles(repository: PersonRepository) = CommandLineRunner {
         val people = listOf(
-            Person("Wojtek", 71.0),
-            Person("Damian", 69.5)
+            Person("Wojtek", 71.0f),
+            Person("Damian", 69.5f)
         )
         repository.saveAll(people)
     }

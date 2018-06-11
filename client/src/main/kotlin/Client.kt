@@ -20,7 +20,7 @@ class Client {
 
     fun addPerson(words: List<String>) {
         val name = words[1]
-        val weight = words[2].toDouble()
+        val weight = words[2].toFloat()
         val person = CreatePersonDto(name, weight)
         val id = template.postForObject<Int>(url, person)
         println("id: $id")
@@ -29,7 +29,7 @@ class Client {
     fun replacePerson(words: List<String>) {
         val id = words[1].toInt()
         val name = words[2]
-        val weight = words[3].toDouble()
+        val weight = words[3].toFloat()
         val person = CreatePersonDto(name, weight)
         tryToMakeSuccessfulRequest { template.put("$url/$id", person) }
     }
@@ -60,9 +60,9 @@ class Client {
         return if (word == "-") null else word
     }
 
-    private fun tryToGetWeight(arguments: List<String>): Double? =
+    private fun tryToGetWeight(arguments: List<String>): Float? =
         try {
-            arguments[3].toDouble()
+            arguments[3].toFloat()
         } catch (e: Exception) {
             null
         }

@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue
 import javax.persistence.Id
 
 @Entity
-internal class Person(private var name: String, private var weight: Double) {
+internal class Person(private var name: String, private var weight: Float) {
 
     @Id
     @GeneratedValue
@@ -32,7 +32,7 @@ internal class Person(private var name: String, private var weight: Double) {
 
         fun random(): Person {
             val randomString = RandomGenerator.randomName(3, 12)
-            val randomWeight = RandomGenerator.randomDouble(30, 130)
+            val randomWeight = RandomGenerator.randomFloat(30, 130)
             return Person(randomString, randomWeight)
         }
     }
