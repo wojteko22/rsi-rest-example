@@ -1,6 +1,7 @@
 package com.example.rest
 
 import com.example.dto.CreatePersonDto
+import com.example.dto.CreateRandomPeopleDto
 import com.example.dto.UpdatePersonDto
 import com.example.rest.jpa.PersonService
 import org.springframework.web.bind.annotation.*
@@ -15,6 +16,9 @@ class PersonController(val service: PersonService) {
 
     @PostMapping
     fun addPerson(@RequestBody dto: CreatePersonDto) = service.addPerson(dto)
+
+    @PostMapping("/random")
+    fun addRandomPeople(@RequestBody dto: CreateRandomPeopleDto) = service.addRandomPeople(dto)
 
     @PutMapping("/{id}")
     fun replacePerson(@PathVariable id: Int, @RequestBody dto: CreatePersonDto) {

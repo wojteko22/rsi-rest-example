@@ -1,6 +1,8 @@
 package com.example.rest.jpa
 
 import com.example.dto.CreatePersonDto
+import com.example.dto.CreateRandomPeopleDto
+import com.example.dto.PersonDto
 import com.example.dto.UpdatePersonDto
 import org.springframework.stereotype.Service
 
@@ -29,5 +31,14 @@ class PersonService internal constructor(val repository: PersonRepository) {
 
     fun deletePerson(id: Int) {
         repository.deleteById(id)
+    }
+
+    fun addRandomPeople(dto: CreateRandomPeopleDto): List<PersonDto> {
+        val randomPeopleCount = RandomGenerator.randomInt(dto.a, dto.b)
+        return List(randomPeopleCount) {
+            val randomPerson = Person.random()
+            val savedPerson = repository.save(randomPerson)
+            savedPerson.toDto()
+        }
     }
 }

@@ -27,6 +27,13 @@ internal class Person(private var name: String, private var weight: Double) {
     fun toDto() = PersonDto(id, name, weight)
 
     companion object {
+
         fun fromDto(dto: CreatePersonDto) = Person(dto.name, dto.weight)
+
+        fun random(): Person {
+            val randomString = RandomGenerator.randomName(3, 12)
+            val randomWeight = RandomGenerator.randomDouble(30, 130)
+            return Person(randomString, randomWeight)
+        }
     }
 }
