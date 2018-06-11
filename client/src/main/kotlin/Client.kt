@@ -1,4 +1,5 @@
 import com.example.dto.CreatePersonDto
+import com.example.dto.CreateRandomPeopleDto
 import com.example.dto.PersonDto
 import com.example.dto.UpdatePersonDto
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory
@@ -24,6 +25,14 @@ class Client {
         val person = CreatePersonDto(name, weight)
         val id = template.postForObject<Int>(url, person)
         println("id: $id")
+    }
+
+    fun addRandomPeople(words: List<String>) {
+        val a = words[1].toInt()
+        val b = words[2].toInt()
+        val dto = CreateRandomPeopleDto(a, b)
+        val generatedPeople = template.postForObject<List<PersonDto>>("$url/random", dto)
+        println("generatedPeople: $generatedPeople")
     }
 
     fun replacePerson(words: List<String>) {

@@ -6,6 +6,7 @@ object ConsoleApplication {
             Available commands:
             get
             post {name} {weight}
+            post2 {a} {b}
             put {id} {name} {weight}
             patch {id} -/{name} [weight]
             delete {id}
@@ -34,6 +35,7 @@ object ConsoleApplication {
         when (command) {
             "get" -> client.getAllPeople()
             "post" -> client.addPerson(words)
+            "post2" -> client.addRandomPeople(words)
             "put" -> client.replacePerson(words)
             "patch" -> client.updatePerson(words)
             "delete" -> client.deletePerson(words)
