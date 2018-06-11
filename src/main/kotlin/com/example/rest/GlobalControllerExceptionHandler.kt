@@ -13,4 +13,8 @@ class GlobalControllerExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(EntityNotFoundException::class, EmptyResultDataAccessException::class)
     fun handleLackOfResource(e: Exception) = ErrorDto("No entity with given id")
+
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    @ExceptionHandler(IllegalArgumentException::class)
+    fun handleIllegalArgument(e: Exception) = ErrorDto(e.message)
 }

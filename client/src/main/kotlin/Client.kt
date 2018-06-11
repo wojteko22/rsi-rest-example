@@ -31,8 +31,10 @@ class Client {
         val a = words[1].toInt()
         val b = words[2].toInt()
         val dto = CreateRandomPeopleDto(a, b)
-        val generatedPeople = template.postForObject<List<PersonDto>>("$url/random", dto)
-        println("\ngeneratedPeople: $generatedPeople")
+        tryToMakeSuccessfulRequest {
+            val generatedPeople = template.postForObject<List<PersonDto>>("$url/random", dto)
+            println("\ngeneratedPeople: $generatedPeople")
+        }
     }
 
     fun replacePerson(words: List<String>) {
